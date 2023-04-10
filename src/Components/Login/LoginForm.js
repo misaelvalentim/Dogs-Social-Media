@@ -3,48 +3,41 @@ import { Link } from 'react-router-dom'
 import Input from '../Forms/Input';
 import Button from '../Forms/Button';
 import useForm from '../../Hooks/useForm';
+import { UserContext } from '../../Context/UserContext';
+import Error from '../Helper/Error';
+import styles from './LoginForm.module.css';
+import stylesBtn from '../Forms/Button.module.css'
 
 const LoginForm = () => {
-
     const username = useForm('');
     const password = useForm('');
 
+    const { userLogin, error, loading } = React.useContext(UserContext);
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
 
         if (username.validate() && password.validate()) {
-            fetch('https://dogsapi.origamid.dev/json/jwt-auth/v1/token', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({}),
-            }).then(response => {
-                console.log(response);
-                return response.json();
-            }).then(json => {
-                console.log(json)
-                return json;
-            })
+            userLogin(username.value, password.value);
         }
     }
     return (
         <div>
-            <section>
-                <h1>Login</h1>
-                <form onSubmit={handleSubmit}>
+            <section className='anime-left'>
+                <h1 className='title'>Login</h1>
+                <form className={styles.form} onSubmit={handleSubmit}>
                     <Input label="User" type="text" name="username" {...username} />
                     <Input label="Password" name="password" type="password" {...password} />
-                    <Button>Sign in</Button>
+                    {loading ? <Button disabled>Loading</Button> : <Button>Sign in</Button>}
+                    <Error error={error} />
                 </form>
 
-                <Link to="/login/forgotpassword">Forgot password?</Link>
+                <Link className={styles.forgot} to="/login/forgotpassword">Forgot password?</Link>
 
-                <div>
-                    <h2>Sign up</h2>
+                <div className={styles.signup}>
+                    <h2 className={styles.subtitle}>Sign up</h2>
                     <p>Not signed yet? Sign up now.</p>
-                    <Link to="/login/signup">Sign up</Link>
+                    <Link className={stylesBtn.button} to="/login/signup">Sign up</Link>
 
                 </div>
             </section>
