@@ -14,7 +14,7 @@ const useForm = (type) => {
     function validate(value) {
         if (type === false) return true;
         if (value.length === 0) {
-            setError("Fill out a value")
+            setError("Please fill out this field")
             return false;
         } else if (validation[type] && !validation[type].regex.test(value)) {
             setError(validation[type].message)

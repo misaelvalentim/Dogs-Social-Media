@@ -41,7 +41,7 @@ export const UserStorage = ({ children }) => {
             const { token } = await tokenRes.json();
             window.localStorage.setItem('token', token);
             await getUser(token);
-            navigate('/conta')
+            navigate('/account')
         } catch (error) {
             setError(error.message)
             setLogin(false)
