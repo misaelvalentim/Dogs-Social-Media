@@ -6,10 +6,8 @@ const PhotoGet = () => {
     function handleSubmit(e) {
         e.preventDefault();
         fetch(`https://dogsapi.origamid.dev/json/api/photo/${id}`).then(response => {
-            console.log(response)
             return response.json();
         }).then(json => {
-            console.log(json)
             return json;
         })
     }
