@@ -13,15 +13,18 @@ const UserStatisticsGraphs = ({ data }) => {
             }
         })
 
-        setTotal(data.map(({ acessos }) => Number(acessos)).reduce((a, b) => a + b));
-        setGraph(graphData);
+        if (data.length >= 1) {
+            setTotal(data?.map(({ acessos }) => Number(acessos))?.reduce((a, b) => a + b));
+            setGraph(graphData);
+        }
 
     }, [data])
 
+    if (!data.length >= 1) return <p className={`${styles.total} ${styles.graphItem}`}>Nenhum dado disponível.</p>
     return (
         <section className={`animeleft ${styles.graph}`}>
             <div className={`${styles.total} ${styles.graphItem}`}>
-                <p>Acessos: ${total}</p>
+                <p>Acessos: {total}</p>
             </div>
             <div className={`${styles.graphItem}`}>
                 <VictoryPie

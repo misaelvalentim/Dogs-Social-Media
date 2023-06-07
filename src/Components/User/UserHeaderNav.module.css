@@ -124,3 +124,43 @@
 .navMobile button:hover svg>* {
     fill: #FB1;
 }
+
+.navItem>div {
+    display: none;
+    background: #FB1;
+    width: max-content;
+    position: absolute;
+    padding: 10px;
+    top: -55px;
+    left: 0;
+    z-index: 999999;
+    opacity: 0;
+    animation: showTooltip .5s forwards;
+}
+
+@media (min-width: 40rem) {
+    .navItem {
+        position: relative;
+    }
+
+    .navItem>div::after {
+        content: '';
+        position: absolute;
+        bottom: -7px;
+        left: 12%;
+        background: #FB1;
+        width: 15px;
+        height: 15px;
+        transform: rotate(45deg);
+    }
+
+    .navItem:hover>div {
+        display: block;
+    }
+
+    @keyframes showTooltip {
+        to {
+            opacity: 1;
+        }
+    }
+}
